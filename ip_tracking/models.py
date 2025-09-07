@@ -14,5 +14,11 @@ class RequestLog(models.Model):
 class BlockedIP(models.Model):
     ip_address = models.GenericIPAddressField(unique=True)
 
+class SuspiciousIP(models.Model):
+    ip_address = models.GenericIPAddressField()
+    reason = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
-        return self.ip_address
+        return f"{self.ip_address} - {self.reason}"
+    

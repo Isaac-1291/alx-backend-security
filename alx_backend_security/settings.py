@@ -124,3 +124,12 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    "detect-suspicious-ips-hourly": {
+        "task": "ip_tracking.tasks.detect_suspicious_ips",
+        "schedule": crontab(minute=0, hour="*"),  # every hour
+    },
+}
